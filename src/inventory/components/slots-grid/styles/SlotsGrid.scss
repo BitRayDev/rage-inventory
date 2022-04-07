@@ -1,0 +1,23 @@
+.slots-grid {
+  display: grid;
+  flex-grow: 1;
+
+  height: 100%;
+
+  padding-right: 1vw;
+
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.25vw;
+    background: none;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 0.2vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #ff4141;
+    border-radius: 0.2vw;
+  }
+}

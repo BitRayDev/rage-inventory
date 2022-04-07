@@ -1,0 +1,26 @@
+.drop-zone-label {
+  display: flex;
+  gap: 0.25vw;
+
+  width: 12vw;
+
+  color: white;
+
+  &__icon {
+    max-width: .8vw;
+    max-height: .8vw;
+
+    margin-top: .1vw;
+  }
+
+  &__title {
+    font-size: 1.2vw;
+    font-weight: 700;
+  }
+  &__text {
+    opacity: 0.25;
+
+    font-size: 0.8vw;
+    font-weight: 500;
+  }
+}

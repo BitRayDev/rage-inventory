@@ -1,0 +1,57 @@
+.context-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25vw;
+
+  min-width: 12vw;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5vw;
+
+    padding: 0.65vw 0.75vw;
+
+    background-color: white;
+  }
+
+  &__title {
+    font-size: .8vw;
+    font-weight: 600;
+  }
+  &__weight-container {
+    display: flex;
+    align-items: center;
+    gap: 0.25vw;
+
+    font-style: normal;
+    font-size: .75vw;
+    font-weight: 600;
+  }
+  &__weight-icon {
+    height: .6vw;
+  }
+
+  &__actions {
+    background-color: white;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25vw;
+
+    box-sizing: border-box;
+    padding: 0.7vw 0.75vw;
+
+    font-size: .8vw;
+    font-weight: 600;
+
+    &:hover {
+      background: linear-gradient(180deg, #ff4141 0%, #b92d2d 100%);
+      color: white;
+    }
+  }
+}

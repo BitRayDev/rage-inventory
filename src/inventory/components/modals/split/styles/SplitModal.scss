@@ -1,0 +1,62 @@
+.split-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+
+  width: 14vw;
+
+  box-sizing: border-box;
+  padding: 0.75vw;
+  background-color: white;
+
+  &__title {
+    font-size: .75vw;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &__input {
+    width: 100%;
+
+    box-sizing: border-box;
+    padding: 0.4vw 0.7vw;
+
+    font-size: 0.8vw;
+
+    background-color: rgba(0, 0, 0, 0.05);
+
+    border: none;
+    outline: none;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 0.25vw;
+
+    width: 100%;
+  }
+
+  &__button {
+    width: 50%;
+
+    padding: 0.65vw 0.75vw;
+
+    font-weight: 600;
+    font-size: .75vw;
+
+    background: none;
+    border: none;
+    border-radius: 0.2vw;
+
+    &_type {
+      &_submit {
+        color: white;
+        background: linear-gradient(180deg, #ff4141 0%, #b92d2d 100%);
+      }
+      &_secondary {
+        color: rgba(37, 37, 37, 0.5);
+        background: #e5e5e5;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.accessories-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 5vw);
+  grid-template-rows: repeat(5, 5vw);
+  gap: 1vw;
+
+  background-image: url('/inventory/assets/img/man-outline.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &__slot {
+    &_type {
+      &_jewerly, &_armour, &_backpack {
+        grid-column: 3;
+      }
+    }
+  }
+}

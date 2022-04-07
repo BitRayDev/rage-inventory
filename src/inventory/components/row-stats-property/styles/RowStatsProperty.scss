@@ -1,0 +1,36 @@
+.row-stats-property {
+  display: flex;
+  align-items: center;
+  gap: .5vw;
+
+  height: 2vw;
+
+  box-sizing: border-box;
+  padding: .25vw;
+
+  background: radial-gradient(50% 50% at 50% 50%, rgba(194, 194, 194, 0.05) 0%, rgba(255, 255, 255, 0.09) 100%);
+
+  &__icon {
+    flex-shrink: 0;
+
+    height: 90%;
+  }
+
+  &__title {
+    flex-grow: 1;
+
+    color: white;
+
+    font-size: 1vw;
+    font-weight: 600;
+    text-overflow: ellipsis;
+  }
+  &__value {
+    flex-shrink: 0;
+
+    color: white;
+
+    font-size: 1vw;
+    font-weight: 600;
+  }
+}

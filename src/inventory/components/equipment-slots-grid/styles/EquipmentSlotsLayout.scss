@@ -1,0 +1,31 @@
+.equipment-slots-layout {
+  display: flex;
+  gap: 1vw;
+
+  &__accessories-and-weapons {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+  }
+
+  &__weapon-slot {
+    height: 5vw;
+  }
+
+  &__indexed-slots {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5vw;
+  }
+
+  &__indexed-slot-wrapper {
+    height: 5vw;
+    width: 5vw;
+
+    padding: .5vw;
+
+    border: .1vw solid rgba(255, 255, 255, 0.25);
+    border-radius: .2vw;
+  }
+}

@@ -1,0 +1,38 @@
+.section-description {
+  display: flex;
+  align-items: center;
+  gap: .9vw;
+
+  width: 12vw;
+
+  color: white;
+
+  &__icon-container {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.75vw;
+    height: 2.75vw;
+
+    background: linear-gradient(90.35deg, #AB71BE 1.62%, #1A75FF 99.74%);
+
+    border-radius: .2vw;
+  }
+
+  &__icon {
+    width: 50%;
+  }
+
+  &__title {
+    font-size: 1.2vw;
+    font-weight: 700;
+  }
+  &__text {
+    opacity: .25;
+
+    font-size: .8vw;
+    font-weight: 500;
+  }
+}

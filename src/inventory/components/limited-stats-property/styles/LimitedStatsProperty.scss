@@ -1,0 +1,34 @@
+.limited-stats-property {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+
+  height: 3vw;
+
+  &__icon {
+    height: 80%;
+  }
+
+  &__title {
+    width: min-content;
+
+    color: white;
+
+    font-size: 1vw;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  &__value {
+    color: white;
+
+    font-size: 1.8vw;
+    font-weight: 800;
+  }
+  &__limit {
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 0.9vw;
+    font-weight: 600;
+  }
+}
