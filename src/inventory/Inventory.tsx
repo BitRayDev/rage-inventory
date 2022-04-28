@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react'
+import React, {createRef, useState} from 'react'
 import './styles/Inventory.scss';
 
 import locationIcon from './assets/img/icons/location.svg';
@@ -21,14 +21,14 @@ import waterIcon from './assets/img/icons/water.svg';
 import testItemIcon from './assets/img/items/jacket.png';
 
 import SectionDescription from './components/section-description';
-import SlotsGrid, { GridSlot } from './components/slots-grid';
+import SlotsGrid, {GridSlot} from './components/slots-grid';
 import RowStatsProperty from './components/row-stats-property';
-import EquipmentSlotsGrid, { EquipmentSlot as EquipmentSlot } from './components/equipment-slots-grid';
+import EquipmentSlotsGrid, {EquipmentSlot as EquipmentSlot} from './components/equipment-slots-grid';
 import LimitedStatsProperty from './components/limited-stats-property';
 import DropZoneLabel from './components/drop-zone-label';
 import CircleStatsProperty from './components/circle-stats-property';
-import { SlotItem } from './components/slot';
-import { ContextMenu, SplitModal } from './components/modals';
+import {SlotItem} from './components/slot';
+import {ContextMenu, SplitModal} from './components/modals';
 import DropZone from './components/drop-zone';
 
 export type DragStatus = "None" | "Active" | "Succeed";
@@ -38,6 +38,7 @@ export interface GridContainerData {
   columns: number,
   slots: GridSlot[]
 }
+
 export interface EquipmentContainerData {
   slots: EquipmentSlot[]
 }
@@ -47,7 +48,7 @@ export interface DragData {
   item: SlotItem,
 }
 
-const Inventory = ({ }) => {
+const Inventory = ({}) => {
 
   const [inventoryWeight, setInventoryWeight] = useState(94);
   const [inventoryWeightLimit, setInventoryWeightLimit] = useState(100);
@@ -176,10 +177,27 @@ const Inventory = ({ }) => {
       pass = false;
 
     // Если слот вылазит за рамки контейнера
-    if (Number(slot.slotId) % containerData.columns + (dragData?.item?.sizeX ?? 1) > containerData.columns ||
-      Math.floor(Number(slot.slotId) / containerData.columns) + (dragData?.item?.sizeY ?? 1) > containerData.rows) {
-
+    const slotColumn = Number(slot.slotId) % containerData.columns;
+    const slotRow = Math.floor(Number(slot.slotId) / containerData.columns)
+    const slotXSize = dragData?.item?.sizeX ?? 1;
+    const slotYSize = dragData?.item?.sizeY ?? 1;
+    if (slotColumn + slotXSize > containerData.columns || slotRow + slotYSize > containerData.rows) {
       pass = false;
+    }
+
+    for (let containerSlot of containerData.slots) {
+      const containerSlotColumn = Number(containerSlot.slotId) % containerData.columns;
+      const containerSlotRow = Math.floor(Number(containerSlot.slotId) / containerData.columns)
+      const containerSlotXSize = containerSlot.item?.sizeX ?? 1;
+      const containerSlotYSize = containerSlot.item?.sizeY ?? 1;
+
+      if (slotRow < containerSlotRow + containerSlotYSize && (slotRow + slotYSize > containerSlotRow)) {
+        if (slotColumn < containerSlotColumn + containerSlotXSize && slotColumn + slotXSize > containerSlotColumn) {
+
+          pass = false;
+          break;
+        }
+      }
     }
 
     e.dataTransfer.dropEffect = pass ? "move" : "none";
@@ -350,8 +368,8 @@ const Inventory = ({ }) => {
     <div className='inventory'>
       {(contextMenuData.isActive || splitModalData.isActive) &&
         <div className='modal-container'>
-          <div className='modal-fullscreen-wrapper' onClick={onModalClose} onContextMenu={onModalClose} ></div>
-          <div className='modal' style={{ top: modalPosition.y, left: modalPosition.x }}>
+          <div className='modal-fullscreen-wrapper' onClick={onModalClose} onContextMenu={onModalClose}></div>
+          <div className='modal' style={{top: modalPosition.y, left: modalPosition.x}}>
             {contextMenuData.isActive &&
               <ContextMenu
                 title={contextMenuData.title}
@@ -374,14 +392,14 @@ const Inventory = ({ }) => {
       }
       <div className='inventory__content'>
         <div className='inventory__section'>
-          <SectionDescription icon={locationIcon} title="Вещи рядом" text="Вещи, которые валяются рядом с Вами" />
+          <SectionDescription icon={locationIcon} title="Вещи рядом" text="Вещи, которые валяются рядом с Вами"/>
           <div className='inventory__items-near-grid-container'>
             <SlotsGrid
               columnsAmount={itemsNearContainerData.columns}
               rowsAmount={itemsNearContainerData.rows}
               slotWidth='5vw'
               gap='1vw'
-              slots={itemsNearContainerData.slots.map(itemData => ({ ...itemData, slotId: Number(itemData.slotId) }))}
+              slots={itemsNearContainerData.slots.map(itemData => ({...itemData, slotId: Number(itemData.slotId)}))}
               onDragStart={(e, slot) => onGridSlotDragStart(e, itemsNearContainerData, setItemsNearContainerData, slot)}
               onDragOver={(e, slot) => onGridSlotDragOver(e, itemsNearContainerData, setItemsNearContainerData, slot)}
               onDrop={(e, slot) => onGridSlotDrop(e, itemsNearContainerData, setItemsNearContainerData, slot)}
@@ -390,12 +408,13 @@ const Inventory = ({ }) => {
             />
           </div>
           <div className='inventory__row-stats'>
-            <RowStatsProperty icon={cashIcon} title='Наличка' value={`$ ${cashValue}`} />
-            <RowStatsProperty icon={creditCardIcon} title='В банке' value={`$ ${bankValue}`} />
+            <RowStatsProperty icon={cashIcon} title='Наличка' value={`$ ${cashValue}`}/>
+            <RowStatsProperty icon={creditCardIcon} title='В банке' value={`$ ${bankValue}`}/>
           </div>
         </div>
         <div className='inventory__section'>
-          <SectionDescription icon={backpackIcon} title="Инвентарь" text="Вещи, которые имеет Ваш персонаж находятся тут" />
+          <SectionDescription icon={backpackIcon} title="Инвентарь"
+                              text="Вещи, которые имеет Ваш персонаж находятся тут"/>
           <EquipmentSlotsGrid
             slots={equipmentContainerData.slots}
             onDragStart={onEquipmentSlotDragStart}
@@ -407,15 +426,16 @@ const Inventory = ({ }) => {
         </div>
         <div className='inventory__section'>
           <div className='inventory__section-header'>
-            <SectionDescription icon={cartIcon} title="Ваши предметы" text="Предметы, которые у Вас за спиной." />
-            <LimitedStatsProperty icon={weightIcon} title='Вес Инвентаря' value={`${inventoryWeight}`} limit={`${inventoryWeightLimit} KG`} />
+            <SectionDescription icon={cartIcon} title="Ваши предметы" text="Предметы, которые у Вас за спиной."/>
+            <LimitedStatsProperty icon={weightIcon} title='Вес Инвентаря' value={`${inventoryWeight}`}
+                                  limit={`${inventoryWeightLimit} KG`}/>
           </div>
           <SlotsGrid
             columnsAmount={backpackContainerData.columns}
             rowsAmount={backpackContainerData.rows}
             slotWidth='5vw'
             gap='1vw'
-            slots={backpackContainerData.slots.map(itemData => ({ ...itemData, slotId: Number(itemData.slotId) }))}
+            slots={backpackContainerData.slots.map(itemData => ({...itemData, slotId: Number(itemData.slotId)}))}
             onDragStart={(e, slot) => onGridSlotDragStart(e, backpackContainerData, setBackpackContainerData, slot)}
             onDragOver={(e, slot) => onGridSlotDragOver(e, backpackContainerData, setBackpackContainerData, slot)}
             onDrop={(e, slot) => onGridSlotDrop(e, backpackContainerData, setBackpackContainerData, slot)}
@@ -423,24 +443,24 @@ const Inventory = ({ }) => {
             onContextMenu={(e, slot) => onGridSlotContextMenu(e, backpackContainerData, setBackpackContainerData, slot)}
           />
           <div className='inventory__circle-stats'>
-            <CircleStatsProperty value={healthValue} icon={heartIcon} color='#FF2B2B' />
-            <CircleStatsProperty value={armourValue} icon={armourIcon} color='#36C6F4' />
-            <CircleStatsProperty value={foodValue} icon={burgerIcon} color='#F4CA36' />
-            <CircleStatsProperty value={waterValue} icon={waterIcon} color='#A7E5F9' />
+            <CircleStatsProperty value={healthValue} icon={heartIcon} color='#FF2B2B'/>
+            <CircleStatsProperty value={armourValue} icon={armourIcon} color='#36C6F4'/>
+            <CircleStatsProperty value={foodValue} icon={burgerIcon} color='#F4CA36'/>
+            <CircleStatsProperty value={waterValue} icon={waterIcon} color='#A7E5F9'/>
           </div>
         </div>
       </div>
       <div className='inventory__drop-zones'>
         <div className='inventory__drop-zone-container'>
           <DropZone icon={trashcanIcon} title='Выбросить' description='Предмет будет выброшен рядом с Вами'
-            onDragOver={(e: React.DragEvent) => onDropZoneDragOver(e, 'drop')}
-            onDrop={(e: React.DragEvent) => onDropZoneDrop(e, 'drop')}
+                    onDragOver={(e: React.DragEvent) => onDropZoneDragOver(e, 'drop')}
+                    onDrop={(e: React.DragEvent) => onDropZoneDrop(e, 'drop')}
           />
         </div>
         <div className='inventory__drop-zone-container'>
           <DropZone icon={layoutIcon} title='Разделить' description='Предмет будет разделен на указанное Вами кол-во'
-            onDragOver={(e: React.DragEvent) => onDropZoneDragOver(e, 'split')}
-            onDrop={(e: React.DragEvent) => onDropZoneDrop(e, 'split')}
+                    onDragOver={(e: React.DragEvent) => onDropZoneDragOver(e, 'split')}
+                    onDrop={(e: React.DragEvent) => onDropZoneDrop(e, 'split')}
           />
         </div>
       </div>
